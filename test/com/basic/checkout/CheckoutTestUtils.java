@@ -22,6 +22,15 @@ public class CheckoutTestUtils {
     protected static final double PRICE_2 = 30;
     protected static final double PRICE_3 = 20;
     protected static final double PRICE_4 = 15;
+    protected static final double OFFER_PRICE_1 = 130;
+    protected static final double OFFER_PRICE_2 = 45;
+
+    protected static final int OFFER_MULTIPLIER_1 = 3;
+    protected static final int OFFER_MULTIPLIER_2 = 2;
+
+    protected static final Offer OFFER_1 = new Offer(OFFER_MULTIPLIER_1, OFFER_PRICE_1);
+    protected static final Offer OFFER_2 = new Offer(OFFER_MULTIPLIER_2, OFFER_PRICE_2);
+
 
     private Store store;
     protected ShoppingBasket shoppingBasket;
@@ -45,8 +54,8 @@ public class CheckoutTestUtils {
     }
 
     protected void givenStockHasOffersAvailable() {
-        store.addStockOffer(SKU_1, new Offer(3, 130));
-        store.addStockOffer(SKU_2, new Offer(2, 45));
+        store.addStockOffer(SKU_1, OFFER_1);
+        store.addStockOffer(SKU_2, OFFER_2);
     }
 
     protected void scanItem(ShoppingBasket shoppingBasket,String skuId) {
@@ -94,6 +103,6 @@ public class CheckoutTestUtils {
     }
 
     protected double getTotalCostWithOffers() {
-        return 130 + (90 + 30) + 80 + 15;
+        return OFFER_PRICE_1 + (OFFER_PRICE_2 + PRICE_2) + PRICE_3 + PRICE_4;
     }
 }
