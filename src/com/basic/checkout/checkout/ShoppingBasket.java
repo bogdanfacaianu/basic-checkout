@@ -1,14 +1,14 @@
-package main.com.basic.checkout.checkout;
+package com.basic.checkout.checkout;
 
 import java.util.HashMap;
 import java.util.Map;
-import main.com.basic.checkout.stock.Sku;
+import com.basic.checkout.stock.Sku;
 
-public class Basket {
+public class ShoppingBasket {
 
     private final Map<Sku, ScannedItem> scannedItems;
 
-    public Basket() {
+    public ShoppingBasket() {
         this.scannedItems = new HashMap<>();
     }
 
@@ -18,6 +18,10 @@ public class Basket {
 
     public double checkout() {
         return 0;
+    }
+
+    public void clear() {
+        this.scannedItems.clear();
     }
 
     public String toString() {

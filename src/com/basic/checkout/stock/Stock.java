@@ -1,4 +1,4 @@
-package main.com.basic.checkout.stock;
+package com.basic.checkout.stock;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -8,7 +8,7 @@ import java.util.Objects;
 public class Stock {
 
     private static Stock instance;
-    private Map<String, Sku> stock;
+    private final Map<String, Sku> stock;
 
     private Stock() {
         stock = new HashMap<>();
@@ -17,7 +17,6 @@ public class Stock {
     public static Stock initialise() {
         return instance == null ? new Stock() : instance;
     }
-
 
     public void loadBulkStock(Collection<Sku> stock) {
         stock.forEach(this::addSku);

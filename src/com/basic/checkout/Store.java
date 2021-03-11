@@ -1,20 +1,17 @@
-package main.com.basic.checkout;
+package com.basic.checkout;
 
-
+import com.basic.checkout.stock.Offer;
 import java.util.Collection;
-import main.com.basic.checkout.checkout.Basket;
-import main.com.basic.checkout.stock.Sku;
-import main.com.basic.checkout.stock.Stock;
+import com.basic.checkout.stock.Sku;
+import com.basic.checkout.stock.Stock;
 
 public class Store {
 
     private static Store instance;
-    private Stock stock;
-    private Basket basket;
+    private final Stock stock;
 
     private Store() {
         this.stock = Stock.initialise();
-        this.basket = new Basket();
     }
 
     public static Store openShop() {
@@ -22,6 +19,10 @@ public class Store {
     }
 
     public void loadStock(Collection<Sku> skus) {
-        skus.forEach(stock::addSku);
+        stock.loadBulkStock(skus);
+    }
+
+    public void addStockOffer(String sku, Offer offer) {
+
     }
 }

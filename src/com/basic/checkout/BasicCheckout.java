@@ -1,4 +1,4 @@
-package main.com.basic.checkout;
+package com.basic.checkout;
 
 public class BasicCheckout {
 
