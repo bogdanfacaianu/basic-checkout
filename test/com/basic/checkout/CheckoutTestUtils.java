@@ -93,11 +93,27 @@ public class CheckoutTestUtils {
         scanItem(shoppingBasket, UNEXPECTED_SKU_2);
     }
 
+    protected void whenItemsAreScannedAtRandomWithOffersActive(ShoppingBasket shoppingBasket) {
+        scanItem(shoppingBasket, SKU_1);
+        scanItem(shoppingBasket, SKU_1);
+        scanItem(shoppingBasket, SKU_2);
+        scanItem(shoppingBasket, SKU_3);
+        scanItem(shoppingBasket, SKU_2);
+        scanItem(shoppingBasket, SKU_3);
+        scanItem(shoppingBasket, SKU_2);
+        scanItem(shoppingBasket, SKU_1);
+        scanItem(shoppingBasket, SKU_3);
+        scanItem(shoppingBasket, SKU_2);
+        scanItem(shoppingBasket, SKU_4);
+        scanItem(shoppingBasket, SKU_2);
+        scanItem(shoppingBasket, SKU_3);
+    }
+
     protected double getTotalCostWithoutOffers() {
         return PRICE_1 + (PRICE_2 * 2) + PRICE_3 + PRICE_4;
     }
 
     protected double getTotalCostWithOffers() {
-        return OFFER_PRICE_1 + (OFFER_PRICE_2 + PRICE_2) + PRICE_3 + PRICE_4;
+        return OFFER_PRICE_1 + ((OFFER_PRICE_2 * 2) + PRICE_2) + (PRICE_3 * 4) + PRICE_4;
     }
 }

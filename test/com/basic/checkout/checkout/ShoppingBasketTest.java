@@ -27,7 +27,7 @@ public class ShoppingBasketTest extends CheckoutTestUtils {
     public void testCompleteCheckoutOperation_whenItemsAreOnOffer_thenTotalPriceIsUpdated() {
         givenStockHasOffersAvailable();
 
-        whenItemsAreScannedAlongUnexpectedProducts(shoppingBasket);
+        whenItemsAreScannedAtRandomWithOffersActive(shoppingBasket);
 
         double totalCost = shoppingBasket.checkout();
         assertEquals(getTotalCostWithOffers(), totalCost);
