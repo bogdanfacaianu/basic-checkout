@@ -1,7 +1,8 @@
-package com.basic.checkout;
+package com.basic.checkout.checkout;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.basic.checkout.CheckoutTestUtils;
 import org.junit.jupiter.api.Test;
 
 public class ShoppingBasketTest extends CheckoutTestUtils {
@@ -39,6 +40,6 @@ public class ShoppingBasketTest extends CheckoutTestUtils {
         whenItemsAreScannedAlongUnexpectedProducts(shoppingBasket);
 
         double totalCost = shoppingBasket.checkout();
-        assertEquals(getTotalCostWithoutOffers(), totalCost);
+        assertEquals(getTotalCostWithOffers(), totalCost);
     }
 }

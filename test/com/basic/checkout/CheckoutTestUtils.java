@@ -1,36 +1,30 @@
 package com.basic.checkout;
 
-import com.basic.checkout.stock.Offer;
+import static com.basic.checkout.TestHelper.OFFER_1;
+import static com.basic.checkout.TestHelper.OFFER_2;
+import static com.basic.checkout.TestHelper.OFFER_PRICE_1;
+import static com.basic.checkout.TestHelper.OFFER_PRICE_2;
+import static com.basic.checkout.TestHelper.PRICE_1;
+import static com.basic.checkout.TestHelper.PRICE_2;
+import static com.basic.checkout.TestHelper.PRICE_3;
+import static com.basic.checkout.TestHelper.PRICE_4;
+import static com.basic.checkout.TestHelper.SKU_1;
+import static com.basic.checkout.TestHelper.SKU_2;
+import static com.basic.checkout.TestHelper.SKU_3;
+import static com.basic.checkout.TestHelper.SKU_4;
+import static com.basic.checkout.TestHelper.UNEXPECTED_SKU_1;
+import static com.basic.checkout.TestHelper.UNEXPECTED_SKU_2;
+
+import com.basic.checkout.stock.StockItem;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 import com.basic.checkout.checkout.ShoppingBasket;
 import com.basic.checkout.checkout.ScannedItem;
-import com.basic.checkout.stock.Sku;
 import org.junit.jupiter.api.BeforeEach;
 
 public class CheckoutTestUtils {
-
-    protected static final String SKU_1 = "A";
-    protected static final String SKU_2 = "B";
-    protected static final String SKU_3 = "C";
-    protected static final String SKU_4 = "D";
-    protected static final String UNEXPECTED_SKU_1 = "surprise_surprise";
-    protected static final String UNEXPECTED_SKU_2 = "surprise_surprise";
-
-    protected static final double PRICE_1 = 50;
-    protected static final double PRICE_2 = 30;
-    protected static final double PRICE_3 = 20;
-    protected static final double PRICE_4 = 15;
-    protected static final double OFFER_PRICE_1 = 130;
-    protected static final double OFFER_PRICE_2 = 45;
-
-    protected static final int OFFER_MULTIPLIER_1 = 3;
-    protected static final int OFFER_MULTIPLIER_2 = 2;
-
-    protected static final Offer OFFER_1 = new Offer(OFFER_MULTIPLIER_1, OFFER_PRICE_1);
-    protected static final Offer OFFER_2 = new Offer(OFFER_MULTIPLIER_2, OFFER_PRICE_2);
-
 
     private Store store;
     protected ShoppingBasket shoppingBasket;
@@ -43,11 +37,11 @@ public class CheckoutTestUtils {
     }
 
     protected void givenDefaultStock() {
-        Set<Sku> stockToAdd = new HashSet<>(Arrays.asList(
-            new Sku(SKU_1, PRICE_1),
-            new Sku(SKU_3, PRICE_3),
-            new Sku(SKU_4, PRICE_4),
-            new Sku(SKU_2, PRICE_2))
+        Set<StockItem> stockToAdd = new HashSet<>(Arrays.asList(
+            new StockItem(SKU_1, PRICE_1),
+            new StockItem(SKU_3, PRICE_3),
+            new StockItem(SKU_4, PRICE_4),
+            new StockItem(SKU_2, PRICE_2))
         );
 
         store.loadStock(stockToAdd);
@@ -58,9 +52,10 @@ public class CheckoutTestUtils {
         store.addStockOffer(SKU_2, OFFER_2);
     }
 
-    protected void scanItem(ShoppingBasket shoppingBasket,String skuId) {
-        ScannedItem scannedItem = new ScannedItem(skuId);
-        shoppingBasket.scanItem(scannedItem);
+    protected void scanItem(ShoppingBasket shoppingBasket, String skuId) {
+        Optional<ScannedItem> lastScan = shoppingBasket.findLastScan(skuId);
+        Optional<ScannedItem> updatedScan = store.decorateScannedItem(skuId, lastScan.orElse(null));
+        updatedScan.ifPresent(shoppingBasket::scanItem);
     }
 
     protected void whenItemsAreScannedBySku(ShoppingBasket shoppingBasket) {
