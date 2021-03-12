@@ -2,7 +2,7 @@ package com.basic.checkout.stock;
 
 import java.util.Objects;
 
-public class Offer {
+public final class Offer {
 
     private final int multiplier;
     private final double multipliedCost;
@@ -12,8 +12,12 @@ public class Offer {
         this.multipliedCost = multipliedCost;
     }
 
+    public int getMultiplier() {
+        return multiplier;
+    }
+
     public double getOfferPrice() {
-        return 0;
+        return multipliedCost;
     }
 
     @Override
@@ -25,7 +29,8 @@ public class Offer {
             return false;
         }
         Offer offer = (Offer) o;
-        return multiplier == offer.multiplier && Double.compare(offer.multipliedCost, multipliedCost) == 0;
+        return multiplier == offer.multiplier
+            && Double.compare(offer.multipliedCost, multipliedCost) == 0;
     }
 
     @Override
