@@ -2,29 +2,35 @@ package com.basic.checkout.checkout;
 
 import java.util.HashMap;
 import java.util.Map;
-import com.basic.checkout.stock.Sku;
+import java.util.Optional;
 
-public class ShoppingBasket {
+public final class ShoppingBasket {
 
-    private final Map<Sku, ScannedItem> scannedItems;
+    private final Map<String, ScannedItem> scannedItems;
 
     public ShoppingBasket() {
         this.scannedItems = new HashMap<>();
     }
 
     public void scanItem(ScannedItem scannedItem) {
+        scannedItems.put(scannedItem.getSkuId(), scannedItem);
+    }
 
+    public Optional<ScannedItem> findLastScan(String skuId) {
+        if (scannedItems.containsKey(skuId)) {
+            return Optional.of(scannedItems.get(skuId));
+        }
+        return Optional.empty();
     }
 
     public double checkout() {
-        return 0;
+        return scannedItems.values()
+            .stream()
+            .mapToDouble(ScannedItem::getTotalCost)
+            .sum();
     }
 
     public void clear() {
-        this.scannedItems.clear();
-    }
-
-    public String toString() {
-        return null;
+        scannedItems.clear();
     }
 }
