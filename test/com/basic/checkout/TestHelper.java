@@ -9,6 +9,7 @@ public class TestHelper {
     public static final String SKU_2 = "B";
     public static final String SKU_3 = "C";
     public static final String SKU_4 = "D";
+    public static final String SKU_5 = "E";
     public static final String UNEXPECTED_SKU_1 = "surprise_surprise";
     public static final String UNEXPECTED_SKU_2 = "surprise_surprise";
 

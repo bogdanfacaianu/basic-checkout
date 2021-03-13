@@ -15,23 +15,22 @@ import static com.basic.checkout.TestHelper.SKU_4;
 import static com.basic.checkout.TestHelper.UNEXPECTED_SKU_1;
 import static com.basic.checkout.TestHelper.UNEXPECTED_SKU_2;
 
+import com.basic.checkout.checkout.TransactionManager;
 import com.basic.checkout.stock.StockItem;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 import com.basic.checkout.checkout.ShoppingBasket;
-import com.basic.checkout.checkout.ScannedItem;
 import org.junit.jupiter.api.BeforeEach;
 
 public class CheckoutTestUtils {
 
-    private Store store;
+    protected TransactionManager transactionManager;
     protected ShoppingBasket shoppingBasket;
 
     @BeforeEach
     public void init() {
-        store = Store.openShop();
+        transactionManager = new TransactionManager();
         givenDefaultStock();
         shoppingBasket = new ShoppingBasket();
     }
@@ -44,18 +43,19 @@ public class CheckoutTestUtils {
             new StockItem(SKU_2, PRICE_2))
         );
 
-        store.loadStock(stockToAdd);
+        transactionManager.loadStock(stockToAdd);
     }
 
     protected void givenStockHasOffersAvailable() {
-        store.addStockOffer(SKU_1, OFFER_1);
-        store.addStockOffer(SKU_2, OFFER_2);
+        transactionManager.addStockOffer(SKU_1, OFFER_1);
+        transactionManager.addStockOffer(SKU_2, OFFER_2);
     }
 
     protected void scanItem(ShoppingBasket shoppingBasket, String skuId) {
-        Optional<ScannedItem> lastScan = shoppingBasket.findLastScan(skuId);
-        Optional<ScannedItem> updatedScan = store.decorateScannedItem(skuId, lastScan.orElse(null));
-        updatedScan.ifPresent(shoppingBasket::scanItem);
+        transactionManager.scanItem(shoppingBasket, skuId);
+//        Optional<ScannedItem> lastScan = shoppingBasket.findLastScan(skuId);
+//        Optional<ScannedItem> updatedScan = store.decorateScannedItem(skuId, lastScan.orElse(null));
+//        updatedScan.ifPresent(shoppingBasket::scanItem);
     }
 
     protected void whenItemsAreScannedBySku(ShoppingBasket shoppingBasket) {
