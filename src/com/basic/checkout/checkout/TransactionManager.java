@@ -9,6 +9,12 @@ import java.util.Optional;
 
 public class TransactionManager implements StockTransaction{
 
+    private final ScanManager scanManager;
+
+    public TransactionManager() {
+        scanManager = new ScanManager();
+    }
+
     @Override
     public void loadStock(Store store, Collection<StockItem> skus) {
         store.loadStock(skus);
@@ -26,13 +32,21 @@ public class TransactionManager implements StockTransaction{
 
     @Override
     public boolean scanItem(Store store, ShoppingBasket shoppingBasket, String skuId) {
-        Optional<ScannedItem> lastScan = shoppingBasket.findLastScan(skuId);
-        Optional<ScannedItem> updatedScan = store.decorateScannedItem(skuId, lastScan.orElse(null));
+        return store.findItem(skuId).map(stockItem -> handleScannedItem(stockItem, shoppingBasket)).orElse(false);
+    }
+
+    private boolean handleScannedItem(StockItem stockItem, ShoppingBasket shoppingBasket) {
+        Optional<ScannedItem> lastScan = shoppingBasket.findLastScan(stockItem.getSkuId());
+        Optional<ScannedItem> updatedScan = decorateScannedItem(stockItem, lastScan.orElse(null));
         if (updatedScan.isPresent()) {
             shoppingBasket.scanItem(updatedScan.get());
             return true;
         }
         return false;
+    }
+
+    private Optional<ScannedItem> decorateScannedItem(StockItem stockItem, ScannedItem previousScan) {
+        return scanManager.buildUpdatedScannedItem(stockItem, previousScan);
     }
 
 }

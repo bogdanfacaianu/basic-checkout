@@ -1,7 +1,5 @@
 package com.basic.checkout.store;
 
-import com.basic.checkout.checkout.ScanManager;
-import com.basic.checkout.sku.ScannedItem;
 import com.basic.checkout.sku.Offer;
 import com.basic.checkout.sku.StockItem;
 import java.util.Collection;
@@ -12,11 +10,9 @@ public final class Store {
 
     private static Store instance;
     private final Stock stock;
-    private final ScanManager scanManager;
 
     private Store() {
         this.stock = Stock.initialise();
-        this.scanManager = new ScanManager();
     }
 
     public static Store openShop() {
@@ -39,7 +35,7 @@ public final class Store {
         return stock.isStockEmpty();
     }
 
-    public Optional<ScannedItem> decorateScannedItem(String skuId, ScannedItem previousScan) {
-        return stock.findItem(skuId).flatMap(stockItem -> scanManager.buildUpdatedScannedItem(stockItem, previousScan));
+    public Optional<StockItem> findItem(String skuId) {
+        return stock.findItem(skuId);
     }
 }
