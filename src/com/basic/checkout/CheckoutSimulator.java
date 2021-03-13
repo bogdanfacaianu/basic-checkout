@@ -1,14 +1,16 @@
-package com.basic.checkout.simulator;
+package com.basic.checkout;
 
 import com.basic.checkout.checkout.StockTransaction;
 import com.basic.checkout.store.Store;
 import com.basic.checkout.checkout.ShoppingBasket;
 import com.basic.checkout.checkout.TransactionManager;
+import com.sun.org.slf4j.internal.Logger;
+import com.sun.org.slf4j.internal.LoggerFactory;
 import java.util.Scanner;
 
-public class CheckoutSimulator {
+public class CheckoutSimulator implements Simulator {
 
-    private static CheckoutSimulator instance;
+    Logger log = LoggerFactory.getLogger(CheckoutSimulator.class);
 
     private final StockTransaction stockTransaction;
     private final Store store;
@@ -16,15 +18,16 @@ public class CheckoutSimulator {
 
     private final Scanner input;
 
-    private CheckoutSimulator() {
+    public CheckoutSimulator() {
         store = Store.openShop();
         stockTransaction = new TransactionManager();
         shoppingBasket = new ShoppingBasket();
         input = new Scanner(System.in);
     }
 
-    public CheckoutSimulator startSimulator() {
-        return instance == null ? new CheckoutSimulator() : instance;
+    @Override
+    public void startSimulator() {
+        promptFirstMenu();
     }
 
     private void promptFirstMenu() {

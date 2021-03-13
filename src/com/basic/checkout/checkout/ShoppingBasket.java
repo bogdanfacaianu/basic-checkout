@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public final class ShoppingBasket {
+public class ShoppingBasket {
 
     private final Map<String, ScannedItem> scannedItems;
 
