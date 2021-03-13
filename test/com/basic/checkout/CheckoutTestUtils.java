@@ -25,14 +25,16 @@ import org.junit.jupiter.api.BeforeEach;
 
 public class CheckoutTestUtils {
 
-    protected TransactionManager transactionManager;
+    protected Store store;
     protected ShoppingBasket shoppingBasket;
+    protected TransactionManager transactionManager;
 
     @BeforeEach
     public void init() {
+        store = Store.openShop();
+        shoppingBasket = new ShoppingBasket();
         transactionManager = new TransactionManager();
         givenDefaultStock();
-        shoppingBasket = new ShoppingBasket();
     }
 
     protected void givenDefaultStock() {
@@ -43,19 +45,16 @@ public class CheckoutTestUtils {
             new StockItem(SKU_2, PRICE_2))
         );
 
-        transactionManager.loadStock(stockToAdd);
+        transactionManager.loadStock(store, stockToAdd);
     }
 
     protected void givenStockHasOffersAvailable() {
-        transactionManager.addStockOffer(SKU_1, OFFER_1);
-        transactionManager.addStockOffer(SKU_2, OFFER_2);
+        transactionManager.addStockOffer(store, SKU_1, OFFER_1);
+        transactionManager.addStockOffer(store, SKU_2, OFFER_2);
     }
 
     protected void scanItem(ShoppingBasket shoppingBasket, String skuId) {
-        transactionManager.scanItem(shoppingBasket, skuId);
-//        Optional<ScannedItem> lastScan = shoppingBasket.findLastScan(skuId);
-//        Optional<ScannedItem> updatedScan = store.decorateScannedItem(skuId, lastScan.orElse(null));
-//        updatedScan.ifPresent(shoppingBasket::scanItem);
+        transactionManager.scanItem(store, shoppingBasket, skuId);
     }
 
     protected void whenItemsAreScannedBySku(ShoppingBasket shoppingBasket) {
