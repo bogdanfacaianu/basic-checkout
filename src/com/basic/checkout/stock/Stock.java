@@ -1,10 +1,12 @@
 package com.basic.checkout.stock;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 
 public final class Stock {
 
@@ -41,8 +43,12 @@ public final class Stock {
         return stock.isEmpty();
     }
 
-    public Optional<Offer> getOfferForSku(String skuId) {
-        return findItem(skuId).map(StockItem::getOffer);
+    public Set<Offer> getOffersForSku(String skuId) {
+        Optional<StockItem> foundItem = findItem(skuId);
+        if (foundItem.isPresent()) {
+            return foundItem.get().getOffers();
+        }
+        return Collections.emptySet();
     }
 
     @Override

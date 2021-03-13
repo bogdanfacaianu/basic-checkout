@@ -8,12 +8,16 @@ import static com.basic.checkout.TestHelper.givenPreviouslyScannedItem;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.basic.checkout.stock.Offer;
 import com.basic.checkout.stock.StockItem;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class ScanManagerTest {
+
+    private static final int TOP_OFFER_MULTIPLIER = 5;
+    private static final int TOP_OFFER_COST = 500;
 
     private ScanManager scanManager;
 
@@ -56,9 +60,19 @@ public class ScanManagerTest {
         assertScannedItemIsUpdated(maybeResultedScan, SKU_1, PRICE_1, 3, OFFER_PRICE_1, true);
     }
 
+    @Test
+    public void testScannedItemGetsCostOnBestOffer() {
+        ScannedItem previousScan = givenPreviouslyScannedItem(SKU_1, PRICE_1, 4, OFFER_PRICE_1);
+
+        Optional<ScannedItem> maybeResultedScan = scanManager.buildUpdatedScannedItem(givenStockWithOffer(), previousScan);
+
+        assertScannedItemIsUpdated(maybeResultedScan, SKU_1, PRICE_1, 5, TOP_OFFER_COST, true);
+    }
+
     private StockItem givenStockWithOffer() {
         StockItem stockItem = new StockItem(SKU_1, PRICE_1);
         stockItem.applyOffer(OFFER_1);
+        stockItem.applyOffer(new Offer(TOP_OFFER_MULTIPLIER, TOP_OFFER_MULTIPLIER));
         return stockItem;
     }
 

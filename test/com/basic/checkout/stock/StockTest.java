@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Optional;
+import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -32,15 +32,15 @@ public class StockTest {
     public void testOfferIsAddedSuccessfully_whenSkuIsRegistered() {
         givenStockWithOffer();
 
-        Optional<Offer> result = stock.getOfferForSku(SKU_1);
-        assertTrue(result.isPresent());
-        assertEquals(OFFER_1, result.get());
+        Set<Offer> result = stock.getOffersForSku(SKU_1);
+        assertFalse(result.isEmpty());
+        assertEquals(OFFER_1, result.iterator().next());
     }
 
     @Test
     public void testFindingOfferForMissingSku_doesntThrowException() {
-        Optional<Offer> result = stock.getOfferForSku(SKU_1);
-        assertFalse(result.isPresent());
+        Set<Offer> result = stock.getOffersForSku(SKU_1);
+        assertTrue(result.isEmpty());
     }
 
     private void givenStockWithOffer() {

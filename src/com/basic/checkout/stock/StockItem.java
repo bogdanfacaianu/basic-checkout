@@ -1,22 +1,25 @@
 package com.basic.checkout.stock;
 
 import com.basic.checkout.common.Item;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 public final class StockItem extends Item {
 
-    private Offer offer;
+    private final Set<Offer> offers;
 
     public StockItem(String skuId, double price) {
         super(skuId, price);
+        this.offers = new HashSet<>();
     }
 
-    public Offer getOffer() {
-        return offer;
+    public Set<Offer> getOffers() {
+        return offers;
     }
 
     public void applyOffer(Offer offer) {
-        this.offer = offer;
+        this.offers.add(offer);
     }
 
     @Override
@@ -31,18 +34,18 @@ public final class StockItem extends Item {
             return false;
         }
         StockItem stockItem = (StockItem) o;
-        return Objects.equals(offer, stockItem.offer);
+        return Objects.equals(offers, stockItem.offers);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), offer);
+        return Objects.hash(super.hashCode(), offers);
     }
 
     @Override
     public String toString() {
         return "StockItem{" +
-            "offer=" + offer +
+            "offers=" + offers +
             '}';
     }
 }

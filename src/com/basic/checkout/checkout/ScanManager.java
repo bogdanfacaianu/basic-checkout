@@ -3,23 +3,25 @@ package com.basic.checkout.checkout;
 import com.basic.checkout.stock.Offer;
 import com.basic.checkout.stock.StockItem;
 import java.util.Optional;
+import java.util.Set;
 
 public class ScanManager {
 
     public Optional<ScannedItem> buildUpdatedScannedItem(StockItem stockItem, ScannedItem previousScan) {
-        Offer stockOffer = stockItem.getOffer();
+        Set<Offer> stockItemOffers = stockItem.getOffers();
         ScannedItem scannedItem = new ScannedItem(stockItem.getSkuId(), stockItem.getPrice());
 
         int newQuantity = previousScan != null ? previousScan.getQuantity() + 1 : 1;
         scannedItem.setQuantity(newQuantity);
 
-        updateTotalCost(scannedItem, stockOffer);
+        updateTotalCost(scannedItem, stockItemOffers);
         return Optional.of(scannedItem);
     }
 
-    private void updateTotalCost(ScannedItem scannedItem, Offer itemOffer) {
-        if (itemOffer != null) {
-            applyTotalWithDiscountIfApplicable(scannedItem, itemOffer);
+    private void updateTotalCost(ScannedItem scannedItem, Set<Offer> itemOffers) {
+        Offer bestOfferFound = determineBestOfferForSkuScanned(itemOffers, scannedItem.getQuantity());
+        if (bestOfferFound != null) {
+            applyTotalWithDiscountIfApplicable(scannedItem, bestOfferFound);
         } else {
             double totalCost = scannedItem.getQuantity() * scannedItem.getPrice();
             scannedItem.setTotalCost(totalCost);
@@ -42,4 +44,7 @@ public class ScanManager {
         return offerCost + nonOfferCost;
     }
 
+    private Offer determineBestOfferForSkuScanned(Set<Offer> offers, int quantity) {
+        return null;
+    }
 }
