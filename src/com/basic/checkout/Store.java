@@ -35,6 +35,10 @@ public final class Store {
         stock.addStockOffer(sku, offer);
     }
 
+    public boolean isStockEmpty() {
+        return stock.isStockEmpty();
+    }
+
     public Optional<ScannedItem> decorateScannedItem(String skuId, ScannedItem previousScan) {
         return stock.findItem(skuId).flatMap(stockItem -> scanManager.buildUpdatedScannedItem(stockItem, previousScan));
     }
