@@ -36,10 +36,6 @@ public final class Store {
     }
 
     public Optional<ScannedItem> decorateScannedItem(String skuId, ScannedItem previousScan) {
-        final Optional<StockItem> possibleStockItem = stock.findItem(skuId);
-        if (possibleStockItem.isPresent()) {
-            return scanManager.buildUpdatedScannedItem(possibleStockItem.get(), previousScan);
-        }
-        return Optional.empty();
+        return stock.findItem(skuId).flatMap(stockItem -> scanManager.buildUpdatedScannedItem(stockItem, previousScan));
     }
 }

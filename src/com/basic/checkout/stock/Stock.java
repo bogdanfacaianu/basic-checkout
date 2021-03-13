@@ -42,7 +42,7 @@ public final class Stock {
     }
 
     public Optional<Offer> getOfferForSku(String skuId) {
-        return Optional.ofNullable(stock.get(skuId).getOffer());
+        return findItem(skuId).map(StockItem::getOffer);
     }
 
     @Override
