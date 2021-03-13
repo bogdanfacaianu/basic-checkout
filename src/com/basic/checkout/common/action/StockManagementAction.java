@@ -2,10 +2,9 @@ package com.basic.checkout.common.action;
 
 public enum StockManagementAction {
     LOAD_DEFAULT(1, "Load Default Stock"),
-    REGISTER_STOCK(1, "Register SKU"),
-    ADD_OFFER(1, "Add offer to SKU"),
-    COMPLETE(2, "Go to Checkout"),
-    CLEAR(3, "Clear Stock");
+    REGISTER_STOCK(2, "Register SKU"),
+    ADD_OFFER(3, "Add offer to SKU"),
+    COMPLETE(4, "Go to Checkout");
 
     private final int index;
     private final String value;

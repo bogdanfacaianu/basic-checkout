@@ -3,7 +3,8 @@ package com.basic.checkout.common.action;
 public enum CheckoutAction {
     CLEAR(1, "Reset Basket"),
     SCAN_PRODUCT(2, "Scan Product"),
-    CONFIRM(3, "Confirm Checkout");
+    CONFIRM(3, "Confirm Checkout"),
+    EXIT(4, "Exit");
 
     private final int index;
     private final String value;
