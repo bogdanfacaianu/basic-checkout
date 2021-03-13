@@ -1,6 +1,5 @@
 package com.basic.checkout;
 
-import static com.basic.checkout.TestHelper.OFFER_1;
 import static com.basic.checkout.TestHelper.OFFER_2;
 import static com.basic.checkout.TestHelper.PRICE_1;
 import static com.basic.checkout.TestHelper.SKU_1;
