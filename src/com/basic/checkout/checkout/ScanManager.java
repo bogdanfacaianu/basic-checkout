@@ -12,7 +12,7 @@ public class ScanManager {
         Set<Offer> stockItemOffers = stockItem.getOffers();
         ScannedItem scannedItem = new ScannedItem(stockItem.getSkuId(), stockItem.getPrice());
 
-        int newQuantity = previousScan != null ? previousScan.getQuantity() + 1 : 1;
+        int newQuantity = previousScan == null ? 1 : previousScan.getQuantity() + 1;
         scannedItem.setQuantity(newQuantity);
 
         updateTotalCost(scannedItem, stockItemOffers);
