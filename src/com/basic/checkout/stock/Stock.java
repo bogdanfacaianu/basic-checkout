@@ -25,7 +25,11 @@ public final class Stock {
     }
 
     public void addSku(StockItem sku) {
-        this.stock.put(sku.getSkuId(), sku);
+        stock.put(sku.getSkuId(), sku);
+    }
+
+    public Optional<StockItem> findItem(String skuId) {
+        return Optional.ofNullable(stock.get(skuId));
     }
 
     public void addStockOffer(String skuId, Offer offer) {
@@ -39,10 +43,7 @@ public final class Stock {
     }
 
     public Optional<Offer> getOfferForSku(String skuId) {
-        if (this.stock.containsKey(skuId)) {
-            return Optional.ofNullable(stock.get(skuId).getOffer());
-        }
-        return Optional.empty();
+        return Optional.ofNullable(stock.get(skuId).getOffer());
     }
 
     @Override
@@ -63,8 +64,9 @@ public final class Stock {
     }
 
     public Optional<ScannedItem> decorateStockItem(String scannedSku, ScannedItem previousScan) {
-        if (stock.containsKey(scannedSku)) {
-            StockItem stockItem = this.stock.get(scannedSku);
+        Optional<StockItem> maybeStockItem = Optional.ofNullable(stock.get(scannedSku));
+        if (maybeStockItem.isPresent()) {
+            StockItem stockItem = maybeStockItem.get();
             return buildUpdatedScannedItem(stockItem, previousScan);
         }
         return Optional.empty();
@@ -85,23 +87,26 @@ public final class Stock {
 
     private void updateTotalCost(ScannedItem scannedItem, Offer itemOffer) {
         if (itemOffer != null) {
-            if (scannedItem.getQuantity() < itemOffer.getMultiplier()) {
-                double totalCost = scannedItem.getQuantity() * scannedItem.getPrice();
-                scannedItem.setTotalCost(totalCost);
-            } else {
-                applyTotalWithDiscount(scannedItem, itemOffer);
-            }
+            applyTotalWithDiscountIfApplicable(scannedItem, itemOffer);
         } else {
             double totalCost = scannedItem.getQuantity() * scannedItem.getPrice();
             scannedItem.setTotalCost(totalCost);
         }
     }
 
-    private void applyTotalWithDiscount(ScannedItem scannedItem, Offer itemOffer) {
-        double totalCost = ((scannedItem.getQuantity() / itemOffer.getMultiplier()) * itemOffer.getOfferPrice())
-            + ((scannedItem.getQuantity() % itemOffer.getMultiplier()) * scannedItem.getPrice());
+    private void applyTotalWithDiscountIfApplicable(ScannedItem scannedItem, Offer itemOffer) {
+        if (scannedItem.getQuantity() < itemOffer.getMultiplier()) {
+            double totalCost = scannedItem.getQuantity() * scannedItem.getPrice();
+            scannedItem.setTotalCost(totalCost);
+        } else {
+            scannedItem.setTotalCost(computeTotalCost(scannedItem, itemOffer));
+            scannedItem.setDiscounted(true);
+        }
+    }
 
-        scannedItem.setTotalCost(totalCost);
-        scannedItem.setDiscounted(true);
+    private double computeTotalCost(ScannedItem scannedItem, Offer itemOffer) {
+        double offerCost = ((double) (scannedItem.getQuantity() / itemOffer.getMultiplier())) * itemOffer.getOfferPrice();
+        double nonOfferCost = (scannedItem.getQuantity() % itemOffer.getMultiplier()) * scannedItem.getPrice();
+        return offerCost + nonOfferCost;
     }
 }
