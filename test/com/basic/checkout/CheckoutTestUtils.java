@@ -15,6 +15,7 @@ import static com.basic.checkout.TestHelper.SKU_4;
 import static com.basic.checkout.TestHelper.UNEXPECTED_SKU_1;
 import static com.basic.checkout.TestHelper.UNEXPECTED_SKU_2;
 
+import com.basic.checkout.checkout.StockTransaction;
 import com.basic.checkout.checkout.TransactionManager;
 import com.basic.checkout.sku.StockItem;
 import com.basic.checkout.store.Store;
@@ -28,13 +29,13 @@ public class CheckoutTestUtils {
 
     protected Store store;
     protected ShoppingBasket shoppingBasket;
-    protected TransactionManager transactionManager;
+    protected StockTransaction stockTransaction;
 
     @BeforeEach
     public void init() {
         store = Store.openShop();
         shoppingBasket = new ShoppingBasket();
-        transactionManager = new TransactionManager();
+        stockTransaction = new TransactionManager();
         givenDefaultStock();
     }
 
@@ -46,16 +47,16 @@ public class CheckoutTestUtils {
             new StockItem(SKU_2, PRICE_2))
         );
 
-        transactionManager.loadStock(store, stockToAdd);
+        stockTransaction.loadStock(store, stockToAdd);
     }
 
     protected void givenStockHasOffersAvailable() {
-        transactionManager.addStockOffer(store, SKU_1, OFFER_1);
-        transactionManager.addStockOffer(store, SKU_2, OFFER_2);
+        stockTransaction.addStockOffer(store, SKU_1, OFFER_1);
+        stockTransaction.addStockOffer(store, SKU_2, OFFER_2);
     }
 
     protected void scanItem(ShoppingBasket shoppingBasket, String skuId) {
-        transactionManager.scanItem(store, shoppingBasket, skuId);
+        stockTransaction.scanItem(store, shoppingBasket, skuId);
     }
 
     protected void whenItemsAreScannedBySku(ShoppingBasket shoppingBasket) {

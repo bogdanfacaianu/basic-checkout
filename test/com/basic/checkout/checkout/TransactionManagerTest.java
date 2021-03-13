@@ -21,7 +21,7 @@ public class TransactionManagerTest extends CheckoutTestUtils {
 
     @Test
     public void testBasketItemIsFirstTimeScanned() {
-        boolean result = transactionManager.scanItem(store, shoppingBasket, SKU_1);
+        boolean result = stockTransaction.scanItem(store, shoppingBasket, SKU_1);
 
         assertTrue(result);
         thenItemHasBeenSavedSuccessfully(1);
@@ -29,10 +29,10 @@ public class TransactionManagerTest extends CheckoutTestUtils {
 
     @Test
     public void testItemIsUpdatedOnOfferForNewlyAddedStock() {
-        transactionManager.addStock(store, new StockItem(SKU_5, PRICE_2));
-        transactionManager.addStockOffer(store, SKU_5, new Offer(1, OFFER_PRICE_2));
+        stockTransaction.addStock(store, new StockItem(SKU_5, PRICE_2));
+        stockTransaction.addStockOffer(store, SKU_5, new Offer(1, OFFER_PRICE_2));
 
-        boolean result = transactionManager.scanItem(store, shoppingBasket, SKU_5);
+        boolean result = stockTransaction.scanItem(store, shoppingBasket, SKU_5);
 
         assertTrue(result);
         thenItemHasBeenUpdatedAfterNewStockAdded();
@@ -42,7 +42,7 @@ public class TransactionManagerTest extends CheckoutTestUtils {
     public void testBasketItemIsUpdatedFromStock() {
         givenSkuHasBeenAlreadyScannedOnce();
 
-        boolean result = transactionManager.scanItem(store, shoppingBasket, SKU_1);
+        boolean result = stockTransaction.scanItem(store, shoppingBasket, SKU_1);
 
         assertTrue(result);
         thenItemHasBeenSavedSuccessfully(2);
@@ -50,7 +50,7 @@ public class TransactionManagerTest extends CheckoutTestUtils {
 
     @Test
     public void testScanIsRejected_whenAnUnexpectedProductIsEncountered() {
-        boolean result = transactionManager.scanItem(store, shoppingBasket, SKU_5);
+        boolean result = stockTransaction.scanItem(store, shoppingBasket, SKU_5);
 
         assertFalse(result);
         thenItemWasRejected();
