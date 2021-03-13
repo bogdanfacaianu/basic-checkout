@@ -1,6 +1,6 @@
 package com.basic.checkout.checkout;
 
-import com.basic.checkout.Store;
+import com.basic.checkout.store.Store;
 import com.basic.checkout.sku.ScannedItem;
 import com.basic.checkout.sku.Offer;
 import com.basic.checkout.sku.StockItem;

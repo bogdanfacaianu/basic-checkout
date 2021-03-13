@@ -1,4 +1,4 @@
-package com.basic.checkout;
+package com.basic.checkout.store;
 
 import com.basic.checkout.checkout.ScanManager;
 import com.basic.checkout.sku.ScannedItem;

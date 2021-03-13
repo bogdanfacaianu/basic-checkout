@@ -1,6 +1,6 @@
 package com.basic.checkout.simulator;
 
-import com.basic.checkout.Store;
+import com.basic.checkout.store.Store;
 import com.basic.checkout.checkout.ShoppingBasket;
 import com.basic.checkout.checkout.TransactionManager;
 import java.util.Scanner;
