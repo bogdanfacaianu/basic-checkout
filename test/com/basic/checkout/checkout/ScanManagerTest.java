@@ -72,7 +72,7 @@ public class ScanManagerTest {
     private StockItem givenStockWithOffer() {
         StockItem stockItem = new StockItem(SKU_1, PRICE_1);
         stockItem.applyOffer(OFFER_1);
-        stockItem.applyOffer(new Offer(TOP_OFFER_MULTIPLIER, TOP_OFFER_MULTIPLIER));
+        stockItem.applyOffer(new Offer(TOP_OFFER_MULTIPLIER, TOP_OFFER_COST));
         return stockItem;
     }
 

@@ -2,6 +2,7 @@ package com.basic.checkout.checkout;
 
 import com.basic.checkout.stock.Offer;
 import com.basic.checkout.stock.StockItem;
+import java.util.Comparator;
 import java.util.Optional;
 import java.util.Set;
 
@@ -45,6 +46,9 @@ public class ScanManager {
     }
 
     private Offer determineBestOfferForSkuScanned(Set<Offer> offers, int quantity) {
-        return null;
+        return offers.stream()
+            .filter(offer -> offer.getMultiplier() <= quantity)
+            .max(Comparator.comparing(Offer::getMultiplier))
+            .orElse(null);
     }
 }
