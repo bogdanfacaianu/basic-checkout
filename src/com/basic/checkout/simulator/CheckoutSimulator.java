@@ -1,5 +1,6 @@
 package com.basic.checkout.simulator;
 
+import com.basic.checkout.checkout.StockTransaction;
 import com.basic.checkout.store.Store;
 import com.basic.checkout.checkout.ShoppingBasket;
 import com.basic.checkout.checkout.TransactionManager;
@@ -9,7 +10,7 @@ public class CheckoutSimulator {
 
     private static CheckoutSimulator instance;
 
-    private final TransactionManager transactionManager;
+    private final StockTransaction stockTransaction;
     private final Store store;
     private final ShoppingBasket shoppingBasket;
 
@@ -17,7 +18,7 @@ public class CheckoutSimulator {
 
     private CheckoutSimulator() {
         store = Store.openShop();
-        transactionManager = new TransactionManager();
+        stockTransaction = new TransactionManager();
         shoppingBasket = new ShoppingBasket();
         input = new Scanner(System.in);
     }
