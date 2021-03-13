@@ -1,4 +1,4 @@
-package com.basic.checkout;
+package com.basic.checkout.simulator;
 
 import com.basic.checkout.checkout.StockTransaction;
 import com.basic.checkout.store.Store;

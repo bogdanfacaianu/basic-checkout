@@ -1,4 +1,4 @@
-package com.basic.checkout;
+package com.basic.checkout.simulator;
 
 public interface Simulator {
 

@@ -1,4 +1,4 @@
-package com.basic.checkout;
+package com.basic.checkout.store;
 
 import static com.basic.checkout.TestHelper.OFFER_2;
 import static com.basic.checkout.TestHelper.PRICE_1;
