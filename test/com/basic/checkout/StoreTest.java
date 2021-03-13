@@ -47,4 +47,13 @@ public class StoreTest {
         assertTrue(result.isPresent());
         assertTrue(result.get().isDiscounted());
     }
+
+    @Test
+    public void testValidatingStockIsEmpty() {
+        assertTrue(store.isStockEmpty());
+
+        store.addStock(new StockItem(SKU_1, PRICE_1));
+
+        assertFalse(store.isStockEmpty());
+    }
 }
