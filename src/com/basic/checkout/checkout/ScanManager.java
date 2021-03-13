@@ -9,13 +9,11 @@ public class ScanManager {
     public Optional<ScannedItem> buildUpdatedScannedItem(StockItem stockItem, ScannedItem previousScan) {
         Offer stockOffer = stockItem.getOffer();
         ScannedItem scannedItem = new ScannedItem(stockItem.getSkuId(), stockItem.getPrice());
-        if (previousScan != null) {
-            scannedItem.setQuantity(previousScan.getQuantity() + 1);
-            updateTotalCost(scannedItem, stockOffer);
-        } else {
-            scannedItem.setQuantity(1);
-            scannedItem.setTotalCost(stockItem.getPrice());
-        }
+
+        int newQuantity = previousScan != null ? previousScan.getQuantity() + 1 : 1;
+        scannedItem.setQuantity(newQuantity);
+
+        updateTotalCost(scannedItem, stockOffer);
         return Optional.of(scannedItem);
     }
 

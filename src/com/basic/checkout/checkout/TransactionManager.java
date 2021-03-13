@@ -4,28 +4,29 @@ import com.basic.checkout.Store;
 import com.basic.checkout.stock.Offer;
 import com.basic.checkout.stock.StockItem;
 import java.util.Collection;
+import java.util.Optional;
 
 public class TransactionManager {
 
-    private final Store store;
-
-    public TransactionManager() {
-        this.store = Store.openShop();
-    }
-
-    public void loadStock(Collection<StockItem> skus) {
+    public void loadStock(Store store, Collection<StockItem> skus) {
         store.loadStock(skus);
     }
 
-    public void addStock(StockItem stockItem) {
+    public void addStock(Store store, StockItem stockItem) {
         store.addStock(stockItem);
     }
 
-    public void addStockOffer(String sku, Offer offer) {
+    public void addStockOffer(Store store, String sku, Offer offer) {
         store.addStockOffer(sku, offer);
     }
 
-    public boolean scanItem(ShoppingBasket basket, String sku) {
+    public boolean scanItem(Store store, ShoppingBasket shoppingBasket, String skuId) {
+        Optional<ScannedItem> lastScan = shoppingBasket.findLastScan(skuId);
+        Optional<ScannedItem> updatedScan = store.decorateScannedItem(skuId, lastScan.orElse(null));
+        if (updatedScan.isPresent()) {
+            shoppingBasket.scanItem(updatedScan.get());
+            return true;
+        }
         return false;
     }
 
