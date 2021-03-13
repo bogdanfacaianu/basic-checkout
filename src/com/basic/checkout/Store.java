@@ -27,6 +27,10 @@ public final class Store {
         stock.loadBulkStock(skus);
     }
 
+    public void addStock(StockItem stockItem) {
+        stock.addSku(stockItem);
+    }
+
     public void addStockOffer(String sku, Offer offer) {
         stock.addStockOffer(sku, offer);
     }
@@ -34,7 +38,7 @@ public final class Store {
     public Optional<ScannedItem> decorateScannedItem(String skuId, ScannedItem previousScan) {
         final Optional<StockItem> possibleStockItem = stock.findItem(skuId);
         if (possibleStockItem.isPresent()) {
-            return scanManager.decorateStockItem(possibleStockItem.get(), previousScan);
+            return scanManager.buildUpdatedScannedItem(possibleStockItem.get(), previousScan);
         }
         return Optional.empty();
     }
