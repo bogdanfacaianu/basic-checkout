@@ -1,17 +1,30 @@
 package com.basic.checkout.common;
 
-public enum CheckoutAction {
-    CLEAR(1),
-    COMPLETE(2);
+public enum StockManagementAction {
+    LOAD_DEFAULT(1, "Load Default Stock"),
+    REGISTER_STOCK(1, "Register SKU"),
+    ADD_OFFER(1, "Add offer to SKU"),
+    COMPLETE(2, "Go to Checkout"),
+    CLEAR(3, "Clear Stock");
 
     private final int index;
+    private final String value;
 
-    CheckoutAction(int index) {
-        this.index = index;
+    public int getIndex() {
+        return index;
     }
 
-    public static CheckoutAction fromValue(int v) {
-        for (CheckoutAction c: CheckoutAction.values()) {
+    public String getValue() {
+        return value;
+    }
+
+    StockManagementAction(int index, String value) {
+        this.index = index;
+        this.value = value;
+    }
+
+    public static StockManagementAction fromIndex(int v) {
+        for (StockManagementAction c: StockManagementAction.values()) {
             if (c.index == v) {
                 return c;
             }
