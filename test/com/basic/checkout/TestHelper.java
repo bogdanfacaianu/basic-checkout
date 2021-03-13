@@ -1,5 +1,6 @@
 package com.basic.checkout;
 
+import com.basic.checkout.checkout.ScannedItem;
 import com.basic.checkout.stock.Offer;
 
 public class TestHelper {
@@ -23,4 +24,12 @@ public class TestHelper {
 
     public static final Offer OFFER_1 = new Offer(OFFER_MULTIPLIER_1, OFFER_PRICE_1);
     public static final Offer OFFER_2 = new Offer(OFFER_MULTIPLIER_2, OFFER_PRICE_2);
+
+    public static ScannedItem givenPreviouslyScannedItem(String skuId, double price, int quantity, double totalCost) {
+        ScannedItem previousScan = new ScannedItem(skuId, price);
+        previousScan.setQuantity(quantity);
+        previousScan.setTotalCost(totalCost);
+
+        return previousScan;
+    }
 }
