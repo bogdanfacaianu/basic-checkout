@@ -1,6 +1,5 @@
-package com.basic.checkout.checkout;
+package com.basic.checkout.sku;
 
-import com.basic.checkout.common.Item;
 import java.util.Objects;
 
 public class ScannedItem extends Item {

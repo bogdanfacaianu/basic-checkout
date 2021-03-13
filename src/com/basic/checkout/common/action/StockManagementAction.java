@@ -1,4 +1,4 @@
-package com.basic.checkout.common;
+package com.basic.checkout.common.action;
 
 public enum StockManagementAction {
     LOAD_DEFAULT(1, "Load Default Stock"),

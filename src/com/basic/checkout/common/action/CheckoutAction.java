@@ -1,4 +1,4 @@
-package com.basic.checkout.common;
+package com.basic.checkout.common.action;
 
 public enum CheckoutAction {
     CLEAR(1, "Reset Basket"),

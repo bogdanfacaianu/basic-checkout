@@ -1,5 +1,7 @@
 package com.basic.checkout.stock;
 
+import com.basic.checkout.sku.Offer;
+import com.basic.checkout.sku.StockItem;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;

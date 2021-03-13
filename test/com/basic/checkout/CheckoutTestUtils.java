@@ -16,7 +16,7 @@ import static com.basic.checkout.TestHelper.UNEXPECTED_SKU_1;
 import static com.basic.checkout.TestHelper.UNEXPECTED_SKU_2;
 
 import com.basic.checkout.checkout.TransactionManager;
-import com.basic.checkout.stock.StockItem;
+import com.basic.checkout.sku.StockItem;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;

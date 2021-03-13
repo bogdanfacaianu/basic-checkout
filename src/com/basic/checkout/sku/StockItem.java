@@ -1,6 +1,5 @@
-package com.basic.checkout.stock;
+package com.basic.checkout.sku;
 
-import com.basic.checkout.common.Item;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;

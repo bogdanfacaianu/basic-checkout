@@ -1,9 +1,9 @@
 package com.basic.checkout;
 
 import com.basic.checkout.checkout.ScanManager;
-import com.basic.checkout.checkout.ScannedItem;
-import com.basic.checkout.stock.Offer;
-import com.basic.checkout.stock.StockItem;
+import com.basic.checkout.sku.ScannedItem;
+import com.basic.checkout.sku.Offer;
+import com.basic.checkout.sku.StockItem;
 import java.util.Collection;
 import com.basic.checkout.stock.Stock;
 import java.util.Optional;

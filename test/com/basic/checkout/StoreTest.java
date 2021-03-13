@@ -6,8 +6,8 @@ import static com.basic.checkout.TestHelper.SKU_1;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.basic.checkout.checkout.ScannedItem;
-import com.basic.checkout.stock.StockItem;
+import com.basic.checkout.sku.ScannedItem;
+import com.basic.checkout.sku.StockItem;
 import java.util.Collections;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;

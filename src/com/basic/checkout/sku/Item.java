@@ -1,4 +1,4 @@
-package com.basic.checkout.common;
+package com.basic.checkout.sku;
 
 import java.util.Objects;
 

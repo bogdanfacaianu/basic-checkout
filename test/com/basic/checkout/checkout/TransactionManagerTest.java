@@ -11,8 +11,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.basic.checkout.CheckoutTestUtils;
-import com.basic.checkout.stock.Offer;
-import com.basic.checkout.stock.StockItem;
+import com.basic.checkout.sku.ScannedItem;
+import com.basic.checkout.sku.Offer;
+import com.basic.checkout.sku.StockItem;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
 

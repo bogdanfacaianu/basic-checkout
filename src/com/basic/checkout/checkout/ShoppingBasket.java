@@ -1,5 +1,6 @@
 package com.basic.checkout.checkout;
 
+import com.basic.checkout.sku.ScannedItem;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;

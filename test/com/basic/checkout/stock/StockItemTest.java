@@ -7,6 +7,8 @@ import static com.basic.checkout.TestHelper.SKU_1;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.basic.checkout.sku.Offer;
+import com.basic.checkout.sku.StockItem;
 import java.util.Arrays;
 import java.util.Set;
 import org.junit.jupiter.api.Test;

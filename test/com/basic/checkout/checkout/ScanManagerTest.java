@@ -8,8 +8,9 @@ import static com.basic.checkout.TestHelper.givenPreviouslyScannedItem;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.basic.checkout.stock.Offer;
-import com.basic.checkout.stock.StockItem;
+import com.basic.checkout.sku.ScannedItem;
+import com.basic.checkout.sku.Offer;
+import com.basic.checkout.sku.StockItem;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
