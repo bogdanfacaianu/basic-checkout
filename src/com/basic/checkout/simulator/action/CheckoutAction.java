@@ -1,4 +1,4 @@
-package com.basic.checkout.common.action;
+package com.basic.checkout.simulator.action;
 
 public enum CheckoutAction {
     SCAN_PRODUCT(1, "Scan Product"),
