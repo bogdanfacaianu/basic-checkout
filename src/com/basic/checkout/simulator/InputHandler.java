@@ -46,7 +46,7 @@ public class InputHandler {
     public StockItem readStockValue() {
         StockItem item = null;
         do {
-            System.out.print("Register stock (format accepted is: sku price): ");
+            System.out.print("Register stock (format accepted is: SKU PRICE): ");
             String readValue = scanner.nextLine();
             String[] s = readValue.split(" ");
 
@@ -62,7 +62,7 @@ public class InputHandler {
         Offer offer = null;
         String readSku = null;
         do {
-            System.out.print("Introduce offer for sku (format accepted is: sku items_multiplier special_cost): ");
+            System.out.print("Introduce offer for sku (format accepted is: SKU ITEMS_MULTIPLIER SPECIAL_PRICE): ");
             String readValue = scanner.nextLine();
             String[] s = readValue.split(" ");
 
