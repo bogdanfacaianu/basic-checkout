@@ -50,7 +50,6 @@ public class CheckoutSimulator implements Simulator {
     }
 
     private void pickNextStockPath(int chosenMenuOption) {
-        clearScreen();
         switch (chosenMenuOption) {
             case 1:
                 loadDefaultStock();
@@ -73,7 +72,6 @@ public class CheckoutSimulator implements Simulator {
     }
 
     private void pickNextCheckoutPath(int chosenMenuOption) {
-        clearScreen();
         switch (chosenMenuOption) {
             case 1:
                 String scannedSku = printStockActions.printScanSku(inputHandler, store);
@@ -102,25 +100,5 @@ public class CheckoutSimulator implements Simulator {
         stockTransaction.addStock(store, new StockItem("D", 15));
         stockTransaction.addStockOffer(store, "A", new Offer(3, 130));
         stockTransaction.addStockOffer(store, "B", new Offer(2, 45));
-    }
-
-    private void clearScreen() {
-        try
-        {
-            final String os = System.getProperty("os.name");
-
-            if (os.contains("Windows"))
-            {
-                Runtime.getRuntime().exec("cls");
-            }
-            else
-            {
-                Runtime.getRuntime().exec("clear");
-            }
-        }
-        catch (final Exception e)
-        {
-            e.printStackTrace();
-        }
     }
 }
