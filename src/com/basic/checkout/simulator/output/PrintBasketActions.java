@@ -3,13 +3,14 @@ package com.basic.checkout.simulator.output;
 import static java.lang.String.format;
 
 import com.basic.checkout.checkout.ShoppingBasket;
-import com.basic.checkout.common.action.CheckoutAction;
+import com.basic.checkout.simulator.action.CheckoutAction;
+import com.basic.checkout.simulator.InputHandler;
 import com.basic.checkout.sku.ScannedItem;
 import com.basic.checkout.store.Store;
 import java.util.Arrays;
 import java.util.Collection;
 
-public class PrintBasketScans implements ActionPrinter {
+public class PrintBasketActions implements ActionPrinter {
 
     @Override
     public void print(Store store, ShoppingBasket shoppingBasket) {
@@ -21,6 +22,11 @@ public class PrintBasketScans implements ActionPrinter {
         printTotal(shoppingBasket);
         printSeparator();
         printOptions();
+    }
+
+    @Override
+    public int printReadMenuOption(InputHandler inputHandler) {
+        return inputHandler.chooseInput();
     }
 
     private void printCheckoutScansHeader() {

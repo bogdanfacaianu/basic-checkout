@@ -1,59 +1,67 @@
 package com.basic.checkout.simulator.output;
 
-import static java.lang.String.format;
-
 import com.basic.checkout.checkout.ShoppingBasket;
-import com.basic.checkout.common.action.CheckoutAction;
-import com.basic.checkout.sku.ScannedItem;
+import com.basic.checkout.simulator.InputHandler;
+import com.basic.checkout.simulator.action.MenuAction;
+import com.basic.checkout.simulator.action.StockManagementAction;
+import com.basic.checkout.sku.Offer;
+import com.basic.checkout.sku.StockItem;
+import com.basic.checkout.store.Store;
 import java.util.Arrays;
-import java.util.Collection;
+import javafx.util.Pair;
 
-public class PrintBasketScans {
+public class PrintStockActions implements ActionPrinter {
 
-    public void printCheckout(ShoppingBasket shoppingBasket) {
-        printSeparator();
-        printCheckoutScansHeader();
-        printSeparator();
-        printScannedItems(shoppingBasket);
-        printSeparator();
-        printTotal(shoppingBasket);
+    @Override
+    public void print(Store store, ShoppingBasket shoppingBasket) {
         printSeparator();
         printOptions();
+        printGoToCheckoutOptionIfAvailable(store);
+        printSeparator();
     }
 
-    private void printCheckoutScansHeader() {
-        System.out.printf("%s      %s      %s      %s%n", "Sku", "Quantity", "Cost", "Discounted");
+    @Override
+    public int printReadMenuOption(InputHandler inputHandler) {
+        printForInput();
+        return inputHandler.chooseInput();
     }
 
-    private void printScannedItems(ShoppingBasket shoppingBasket) {
-        Collection<ScannedItem> scannedItems = shoppingBasket.getScannedItems();
-        scannedItems.stream().map(this::getLineOutput).forEach(this::printScan);
-    }
-
-    private String getLineOutput(ScannedItem scannedItem) {
-        char discounted = scannedItem.isDiscounted()? '*' : ' ';
-        return format("%s         %d          %.2fp           %c",
-            scannedItem.getSkuId(), scannedItem.getQuantity(), scannedItem.getTotalCost(), discounted);
-    }
-
-    private void printScan(String line) {
-        System.out.println(line);
+    private void printForInput() {
+        System.out.print("Input: ");
     }
 
     private void printSeparator() {
         System.out.println("-------------------------------------------");
     }
 
-    private void printTotal(ShoppingBasket shoppingBasket) {
-        System.out.printf("Total: %.2fp%n", shoppingBasket.checkout());
-    }
-
     private void printOptions() {
         System.out.println("Pick an action number:");
-        Arrays.stream(CheckoutAction.values()).forEachOrdered(this::printCheckoutAction);
+        Arrays.stream(StockManagementAction.values()).forEachOrdered(this::printCheckoutAction);
     }
 
-    private void printCheckoutAction(CheckoutAction action) {
+    private void printCheckoutAction(StockManagementAction action) {
         System.out.printf("%d) %s%n", action.getIndex(), action.getValue());
+    }
+
+    private void printGoToCheckoutOptionIfAvailable(Store store) {
+        if (!store.isStockEmpty()) {
+            printMenuAction(MenuAction.GO_TO_CHECKOUT);
+        }
+    }
+
+    private void printMenuAction(MenuAction action) {
+        System.out.printf("%d) %s%n", action.getIndex(), action.getValue());
+    }
+
+    public String printScanSku(InputHandler inputHandler, Store store) {
+        return inputHandler.scanSku(store);
+    }
+
+    public StockItem printReadStockValue(InputHandler inputHandler) {
+        return inputHandler.readStockValue();
+    }
+
+    public Pair<String, Offer> printReadOffer(InputHandler inputHandler, Store store) {
+        return inputHandler.readSkuOffer(store);
     }
 }
