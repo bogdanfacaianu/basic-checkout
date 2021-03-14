@@ -1,9 +1,9 @@
 package com.basic.checkout.common.action;
 
 public enum CheckoutAction {
-    CLEAR(1, "Reset Basket"),
-    SCAN_PRODUCT(2, "Scan Product"),
-    CONFIRM(3, "Confirm Checkout"),
+    SCAN_PRODUCT(1, "Scan Product"),
+    CONFIRM(2, "Confirm Checkout"),
+    CLEAR(3, "Reset Basket"),
     EXIT(4, "Exit");
 
     private final int index;
@@ -20,14 +20,5 @@ public enum CheckoutAction {
     CheckoutAction(int index, String value) {
         this.index = index;
         this.value = value;
-    }
-
-    public static CheckoutAction fromIndex(int v) {
-        for (CheckoutAction c: CheckoutAction.values()) {
-            if (c.index == v) {
-                return c;
-            }
-        }
-        throw new IllegalArgumentException(String.valueOf(v));
     }
 }

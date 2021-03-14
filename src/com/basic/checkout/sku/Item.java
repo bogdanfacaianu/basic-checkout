@@ -2,7 +2,7 @@ package com.basic.checkout.sku;
 
 import java.util.Objects;
 
-public class Item {
+public abstract class Item {
 
     private final String skuId;
     private final double price;
