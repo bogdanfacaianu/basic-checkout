@@ -78,14 +78,13 @@ public class CheckoutSimulator implements Simulator {
                 stockTransaction.scanItem(store, shoppingBasket, scannedSku);
                 break;
             case 2:
-                printBasketActions.print(store, shoppingBasket);
-                System.out.println("Please take your receipt!");
+                printBasketActions.printReceipt(shoppingBasket);
                 System.exit(1);
             case 3:
                 shoppingBasket.clear();
                 break;
             case 4:
-                System.out.println("Transaction cancelled!");
+                printBasketActions.printCancelled();
                 System.exit(1);
             default:
                 break;

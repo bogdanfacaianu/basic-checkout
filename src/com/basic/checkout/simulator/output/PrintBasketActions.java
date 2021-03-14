@@ -29,6 +29,22 @@ public class PrintBasketActions implements ActionPrinter {
         return inputHandler.chooseInput();
     }
 
+    public void printReceipt(ShoppingBasket shoppingBasket) {
+        printSeparator();
+        printCheckoutScansHeader();
+        printSeparator();
+        printScannedItems(shoppingBasket);
+        printSeparator();
+        printTotal(shoppingBasket);
+        printSeparator();
+        System.out.println("Please take your receipt!");
+    }
+
+    public void printCancelled() {
+        printSeparator();
+        System.out.println("Transaction cancelled!");
+    }
+
     private void printCheckoutScansHeader() {
         System.out.printf("%s      %s      %s      %s%n", "Sku", "Quantity", "Cost", "Discounted");
     }
