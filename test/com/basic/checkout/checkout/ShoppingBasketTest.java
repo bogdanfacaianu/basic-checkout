@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.basic.checkout.CheckoutTestUtils;
 import com.basic.checkout.sku.ScannedItem;
+import java.util.Collection;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
 
@@ -35,6 +36,15 @@ public class ShoppingBasketTest extends CheckoutTestUtils {
         Optional<ScannedItem> lastScan = shoppingBasket.findLastScan(SKU_1);
 
         assertTrue(lastScan.isPresent());
+    }
+
+    @Test
+    public void testFindingAllScans() {
+        whenItemsAreScannedBySku(shoppingBasket);
+
+        Collection<ScannedItem> scannedItems = shoppingBasket.getScannedItems();
+
+        assertEquals(4, scannedItems.size());
     }
 
     @Test

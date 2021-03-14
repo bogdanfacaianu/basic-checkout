@@ -1,6 +1,7 @@
 package com.basic.checkout.checkout;
 
 import com.basic.checkout.sku.ScannedItem;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -22,6 +23,10 @@ public class ShoppingBasket {
             return Optional.of(scannedItems.get(skuId));
         }
         return Optional.empty();
+    }
+
+    public Collection<ScannedItem> getScannedItems() {
+        return scannedItems.values();
     }
 
     public double checkout() {
