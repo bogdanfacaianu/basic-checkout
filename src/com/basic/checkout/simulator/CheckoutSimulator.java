@@ -8,13 +8,9 @@ import com.basic.checkout.simulator.output.PrintStockActions;
 import com.basic.checkout.sku.Offer;
 import com.basic.checkout.sku.StockItem;
 import com.basic.checkout.store.Store;
-import com.sun.org.slf4j.internal.Logger;
-import com.sun.org.slf4j.internal.LoggerFactory;
 import javafx.util.Pair;
 
 public class CheckoutSimulator implements Simulator {
-
-    Logger log = LoggerFactory.getLogger(CheckoutSimulator.class);
 
     private final StockTransaction stockTransaction;
     private final Store store;
@@ -124,7 +120,7 @@ public class CheckoutSimulator implements Simulator {
         }
         catch (final Exception e)
         {
-            log.error("Unable to clear console");
+            e.printStackTrace();
         }
     }
 }
